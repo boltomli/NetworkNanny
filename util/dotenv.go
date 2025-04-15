@@ -83,6 +83,15 @@ func envDefaults() {
 	if os.Getenv("PORT") == "" {
 		os.Setenv("PORT", "8000")
 	}
+	// TRUSTED_PROXY
+	_, err = strconv.ParseBool(os.Getenv("TRUSTED_PROXY"))
+	if err != nil {
+		os.Setenv("TRUSTED_PROXY", "false")
+	}
+	// TRUSTED_PROXIES
+	if os.Getenv("TRUSTED_PROXIES") == "" {
+		os.Setenv("TRUSTED_PROXIES", "127.0.0.0/8, ::1/128")
+	}
 
 	l.Info("Environment variables loaded." + " | " +
 		"WINDOW: " + os.Getenv("WINDOW") + " | " +
@@ -95,5 +104,7 @@ func envDefaults() {
 		"BASE_URL_PATH: " + os.Getenv("BASE_URL_PATH") + " | " +
 		"PUBLIC_DIR: " + os.Getenv("PUBLIC_DIR") + " | " +
 		"PORT: " + os.Getenv("PORT") + " | " +
-		"ALLOW_BROWSING: " + os.Getenv("ALLOW_BROWSING"))
+		"ALLOW_BROWSING: " + os.Getenv("ALLOW_BROWSING") + " | " +
+		"TRUSTED_PROXY: " + os.Getenv("TRUSTED_PROXY") + " | " +
+		"TRUSTED_PROXIES: " + os.Getenv("TRUSTED_PROXIES"))
 }

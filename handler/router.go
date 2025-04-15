@@ -19,7 +19,13 @@ type LimiterConf struct {
 func SetUpRouter() *fiber.App {
 
 	//fiber app with logging to console
-	app := fiber.New()
+	app := fiber.New(
+		fiber.Config{
+			EnableTrustedProxyCheck: getTrustedProxy(),
+			TrustedProxies:          getTrustedProxies(),
+			ProxyHeader:             fiber.HeaderXForwardedFor,
+		},
+	)
 
 	// *Uncomment if you want to log time for each request
 	// *This may prove detrimental to performance if you have huge traffic per second.

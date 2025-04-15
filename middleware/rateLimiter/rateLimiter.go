@@ -69,7 +69,7 @@ func New(config LimiterConf) fiber.Handler {
 		block, ttl := checkIp(ip, config)
 
 		if block == "perma" {
-			l.Z.Info().Str("IP", c.IP()).Str("resource", c.Path()).Send()
+			l.Z.Info().Str("IP", ip).Str("resource", c.Path()).Send()
 			return c.Status(429).SendString("PermaBanned")
 		}
 		if block != "" {
